@@ -20,16 +20,17 @@ public class InsertOutlookSignature {
 
             //Pega assinatura padrão
             String defaultSignatureText = FileManager.getText(FileManager.getFile("defaultSignature.htm"));
-            defaultSignatureText = defaultSignatureText.replaceAll(":completeName", completeName);
-            defaultSignatureText = defaultSignatureText.replaceAll(":department", department);
+            String newSignatureText = defaultSignatureText.replaceAll(":completeName", completeName);
+            newSignatureText = newSignatureText.replaceAll(":department", department);
             
-            //Salva na pasta
-            
-            String outlookSignaturePath = System.getProperty("user.home") + "\\AppData\\Microsoft\\Assinaturas\\" + completeName  +".htm";
+            //Salva na pasta            
+            String outlookSignaturePath = System.getProperty("user.home") + "\\AppData\\Roaming\\Microsoft\\Assinaturas\\" + completeName  +".htm";
 
-            
-            
-            JOptionPane.showMessageDialog(null, outlookSignaturePath + "\nA assinatura para " + completeName + " do " + department + ", foi inserida no Outlook. Dentro do Outlook defina a assinatura como padrão para utiliza-la.");
+            if(FileManager.save(outlookSignaturePath, newSignatureText)){
+                JOptionPane.showMessageDialog(null, "A assinatura para " + completeName + " do " + department + ", foi inserida no Outlook. Dentro do Outlook defina a assinatura como padrão para utiliza-la.");
+            }else{
+                JOptionPane.showMessageDialog(null, "Este programa só funciona com a versão em Português do Excel instalada!");
+            }                            
         } else {
             JOptionPane.showMessageDialog(null, "O nome completo não pode ficar em branco!");
         }
