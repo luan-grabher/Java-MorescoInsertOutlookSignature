@@ -1,6 +1,7 @@
 package insertoutlooksignature;
 
 import fileManager.FileManager;
+import java.io.File;
 import javax.swing.JOptionPane;
 
 public class InsertOutlookSignature {
@@ -13,7 +14,7 @@ public class InsertOutlookSignature {
 
         //Verifica nome em branco
         if (!completeName.isBlank()) {
-            String[] departments = new String[]{"Contábil", "Fiscal", "Pessoal", "Administrativo", "TI"};
+            String[] departments = new String[]{"Contábil", "Fiscal", "Societário", "Pessoal", "Administrativo", "TI", "Diretoria"};
 
             String department = (String) JOptionPane.showInputDialog(null, "Qual departamento?", "Departamento", JOptionPane.QUESTION_MESSAGE, null, departments, 0);
             department = "Departamento " + department;
@@ -22,15 +23,16 @@ public class InsertOutlookSignature {
             String defaultSignatureText = FileManager.getText(FileManager.getFile("defaultSignature.htm"));
             String newSignatureText = defaultSignatureText.replaceAll(":completeName", completeName);
             newSignatureText = newSignatureText.replaceAll(":department", department);
-            
-            //Salva na pasta            
-            String outlookSignaturePath = System.getProperty("user.home") + "\\AppData\\Roaming\\Microsoft\\Assinaturas\\" + completeName  +".htm";
 
-            if(FileManager.save(outlookSignaturePath, newSignatureText)){
+            //Salva na pasta            
+            File outlookSignatureFolder = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\Microsoft\\Assinaturas\\");
+            String fileName = completeName + ".htm";
+
+            if (FileManager.save(outlookSignatureFolder, fileName, newSignatureText)) {
                 JOptionPane.showMessageDialog(null, "A assinatura para " + completeName + " do " + department + ", foi inserida no Outlook. Dentro do Outlook defina a assinatura como padrão para utiliza-la.");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Este programa só funciona com a versão em Português do Excel instalada!");
-            }                            
+            }
         } else {
             JOptionPane.showMessageDialog(null, "O nome completo não pode ficar em branco!");
         }
