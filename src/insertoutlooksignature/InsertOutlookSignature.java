@@ -31,7 +31,7 @@ public class InsertOutlookSignature {
             if (FileManager.save(outlookSignatureFolder, fileName, newSignatureText)) {
                 JOptionPane.showMessageDialog(null, "A assinatura para " + completeName + " do " + department + ", foi inserida no Outlook. Dentro do Outlook defina a assinatura como padrão para utiliza-la.");
             } else {
-                JOptionPane.showMessageDialog(null, "Este programa só funciona com a versão em Português do Excel instalada!");
+                JOptionPane.showMessageDialog(null, "Ocorreu algum erro ao tentar salvar, você pode executar novamente?");
             }
         } else {
             JOptionPane.showMessageDialog(null, "O nome completo não pode ficar em branco!");
