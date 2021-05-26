@@ -25,10 +25,12 @@ public class InsertOutlookSignature {
             newSignatureText = newSignatureText.replaceAll(":department", department);
 
             //Salva na pasta            
-            File outlookSignatureFolder = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\Microsoft\\Assinaturas\\");
+            File outlookSignatureFolderPtBr = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\Microsoft\\Assinaturas\\");
+            File outlookSignatureFolderEn = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\Microsoft\\Signatures\\");
             String fileName = completeName + ".htm";
 
-            if (FileManager.save(outlookSignatureFolder, fileName, newSignatureText)) {
+            if (FileManager.save(outlookSignatureFolderPtBr, fileName, newSignatureText)
+                    && FileManager.save(outlookSignatureFolderEn, fileName, newSignatureText)) {
                 JOptionPane.showMessageDialog(null, "A assinatura para " + completeName + " do " + department + ", foi inserida no Outlook. Dentro do Outlook defina a assinatura como padrão para utiliza-la.");
             } else {
                 JOptionPane.showMessageDialog(null, "Ocorreu algum erro ao tentar salvar, você pode executar novamente?");
